@@ -1,0 +1,41 @@
+version: "3.7"
+
+services:
+  proyectos-backend-micro:
+    container_name: proyectos-backend-micro
+    image: proyectos-backend-micro:v1
+    build:
+      context: .
+    ports:
+      - "5001"
+    networks:
+      - proyectos-app   
+
+  proyectos-backend-micro-2:
+    container_name: proyectos-backend-micro-2
+    image: proyectos-backend-micro:v1
+    ports:
+      - "5001"
+    networks:
+      - proyectos-app
+
+  proyectos-backend-micro-3:
+    container_name: proyectos-backend-micro-3
+    image: proyectos-backend-micro:v1
+    ports:
+      - "5001"
+    networks:
+      - proyectos-app
+
+  balanceador-carga:
+    container_name: balanceador-carga
+    image: balanceador-carga:v1
+    build:
+      context: ./balanceador
+    ports:
+      - "5002:80"
+    networks:
+      - proyectos-app
+
+networks:
+  proyectos-app:
